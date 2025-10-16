@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %}Mi Aplicación{% endblock %}</title>
+        <link rel="stylesheet" type="text/css" href="static/styles.css"/>
+    </head>
+
+    <body>
+        <div class="wrapper">
+            <header>
+                <h1>Gestor de Biblioteca</h1>
+                <header>
+                    <nav>
+                        <a href="/">Inicio</a>
+                        <a href="/libros">Libros</a>
+                        <a href="/autores">Autores</a>
+                    </nav>
+                </header>
+            </header>
+
+            <main>
+                {% block content %}{% endblock %}
+            </main>
+        
+            <footer>
+                <hr/>
+            <p>Pie de página común</p>
+            </footer>
+        </div>
+    </body>
+</html>

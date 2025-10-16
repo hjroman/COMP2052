@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Autores - Gestor Biblioteca{% endblock %}
+
+{% block content %}
+<h2>Lista de Autores</h2>
+<p>Estos son los autores registrados:</p>
+
+<ul>
+    {% for autor in autores %}
+        <strong><em><li>{{ autor }}</li></em></strong>
+    {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Libros - Gestor Biblioteca{% endblock %}
+
+{% block content %}
+<h2>Lista de Libros</h2>
+<p>Estos son los libros disponibles:</p>
+
+<ol>
+    {% for libro in libros %}
+        <strong><em><li>{{ libro }}</li></em></strong>
+    {% endfor %}
+</ol>
+
+{% endblock %}
