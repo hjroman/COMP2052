@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Autenticación</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+        .container { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); max-width: 500px; width: 90%; text-align: center; }
+        h1 { color: #333; margin-bottom: 10px; }
+        p { color: #666; margin-bottom: 30px; line-height: 1.6; }
+        .btn { display: inline-block; padding: 12px 30px; background: #667eea; color: white; text-decoration: none; border-radius: 25px; transition: all 0.3s; margin: 5px; }
+        .btn:hover { background: #764ba2; transform: translateY(-2px); }
+        .features { text-align: left; margin: 30px 0; }
+        .features li { margin: 10px 0; color: #555; }
+        .lock-icon { font-size: 60px; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="lock-icon">🔐</div>
+        <h1>Sistema de Autenticación Flask</h1>
+        <p>Bienvenido al sistema de gestión de usuarios con Flask-Login</p>
+        
+        <ul class="features">
+            <li>✓ Autenticación segura con hashing</li>
+            <li>✓ Gestión de sesiones</li>
+            <li>✓ Rutas protegidas</li>
+            <li>✓ Roles y permisos</li>
+        </ul>
+        
+        <a href="{{ url_for('login') }}" class="btn">Iniciar Sesión</a>
+    </div>
+</body>
+</html>

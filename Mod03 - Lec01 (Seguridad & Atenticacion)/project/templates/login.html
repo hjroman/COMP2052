@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+        .container { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); max-width: 400px; width: 90%; }
+        h2 { color: #333; margin-bottom: 30px; text-align: center; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 5px; color: #555; font-weight: 500; }
+        input[type="text"], input[type="password"] { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 14px; transition: border 0.3s; }
+        input:focus { outline: none; border-color: #667eea; }
+        .checkbox-group { display: flex; align-items: center; margin-bottom: 20px; }
+        .checkbox-group input { margin-right: 8px; }
+        .btn { width: 100%; padding: 12px; background: #667eea; color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; transition: background 0.3s; }
+        .btn:hover { background: #764ba2; }
+        .alert { padding: 10px; border-radius: 5px; margin-bottom: 20px; }
+        .alert-error { background: #fee; color: #c33; border: 1px solid #fcc; }
+        .alert-success { background: #efe; color: #3c3; border: 1px solid #cfc; }
+        .users-info { background: #f8f9fa; padding: 15px; border-radius: 8px; margin-top: 20px; font-size: 13px; }
+        .users-info h4 { margin-bottom: 10px; color: #333; }
+        .users-info p { margin: 5px 0; color: #666; }
+        .back-link { display: block; text-align: center; margin-top: 15px; color: #667eea; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>🔐 Iniciar Sesión</h2>
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <form method="POST">
+            <div class="form-group">
+                <label for="username">Usuario:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            
+            <div class="checkbox-group">
+                <input type="checkbox" id="remember" name="remember">
+                <label for="remember" style="margin-bottom: 0;">Recordarme</label>
+            </div>
+            
+            <button type="submit" class="btn">Ingresar</button>
+        </form>
+        
+        <div class="users-info">
+            <h4>👥 Usuarios de Prueba:</h4>
+            <p><strong>admin</strong> / admin123 (Administrador)</p>
+            <p><strong>usuario1</strong> / pass123 (Usuario)</p>
+            <p><strong>moderador</strong> / mod123 (Moderador)</p>
+        </div>
+        
+        <a href="{{ url_for('home') }}" class="back-link">← Volver al inicio</a>
+    </div>
+</body>
+</html>

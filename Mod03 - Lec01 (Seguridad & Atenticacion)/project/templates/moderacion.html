@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Moderación</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f5f5; }
+        .navbar { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; }
+        .navbar h1 { font-size: 24px; }
+        .navbar a { color: white; text-decoration: none; margin-left: 20px; padding: 8px 16px; border-radius: 5px; transition: background 0.3s; }
+        .navbar a:hover { background: rgba(255,255,255,0.2); }
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        .mod-card { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <h1>🛡️ Panel de Moderación</h1>
+        <div>
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('logout') }}">Cerrar Sesión</a>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <div class="mod-card">
+            <h2 style="color: #333; margin-bottom: 10px;">Herramientas de Moderación</h2>
+            <p style="color: #666;">Panel exclusivo para moderadores y administradores</p>
+            <p style="color: #667eea; margin-top: 20px;">Tu rol: <strong>{{ current_user.role }}</strong></p>
+        </div>
+    </div>
+</body>
+</html>

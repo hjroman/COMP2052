@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f5f5; }
+        .navbar { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; }
+        .navbar h1 { font-size: 24px; }
+        .navbar a { color: white; text-decoration: none; margin-left: 20px; padding: 8px 16px; border-radius: 5px; transition: background 0.3s; }
+        .navbar a:hover { background: rgba(255,255,255,0.2); }
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        .admin-card { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background: #667eea; color: white; }
+        tr:hover { background: #f8f9fa; }
+        .role-badge { display: inline-block; padding: 5px 10px; border-radius: 12px; font-size: 12px; }
+        .role-administrador { background: #dc3545; color: white; }
+        .role-moderador { background: #ffc107; color: #333; }
+        .role-usuario { background: #28a745; color: white; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <h1>⚙️ Panel de Administración</h1>
+        <div>
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('logout') }}">Cerrar Sesión</a>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <div class="admin-card">
+            <h2 style="color: #333; margin-bottom: 10px;">Gestión de Usuarios</h2>
+            <p style="color: #666; margin-bottom: 20px;">Vista completa de todos los usuarios del sistema</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Usuario</th>
+                        <th>Rol</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for username, user in users.items() %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.username }}</td>
+                        <td><span class="role-badge role-{{ user.role }}">{{ user.role }}</span></td>
+                        <td>✓ Activo</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
