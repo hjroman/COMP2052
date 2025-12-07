@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Área de Usuario{% endblock %}
+
+{% block content %}
+<h2>Área de Usuario</h2>
+<p class="text-muted">Todos los usuarios autenticados pueden acceder a esta página.</p>
+
+<div class="row mt-4">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5>Contenido Disponible</h5>
+            </div>
+            <div class="card-body">
+                <p>Aquí puedes ver el contenido disponible para tu rol de usuario.</p>
+                <ul>
+                    <li>Artículo 1: Introducción a Flask</li>
+                    <li>Artículo 2: Manejo de Bases de Datos</li>
+                    <li>Artículo 3: Autenticación y Autorización</li>
+                    <li>Artículo 4: APIs REST con Flask</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5>Tu Perfil</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Usuario:</strong> {{ current_user.username }}</p>
+                <p><strong>Email:</strong> {{ current_user.email }}</p>
+                <p><strong>Rol:</strong> {{ current_user.role.name }}</p>
+                <button class="btn btn-info">Editar Perfil</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

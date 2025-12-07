@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<h2>Bienvenido, {{ user.username }}!</h2>
+<p><strong>Rol:</strong> {{ user.role.name }}</p>
+<p><strong>Permisos:</strong> {{ permissions|join(', ') }}</p>
+
+<div class="row mt-4">
+    {% if 'read' in permissions %}
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Área de Usuario</h5>
+                <p class="card-text">Acceso de solo lectura disponible para todos los usuarios.</p>
+                <a href="{{ url_for('user_area') }}" class="btn btn-info">Acceder</a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if 'update' in permissions %}
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Panel de Editor</h5>
+                <p class="card-text">Funciones de edición disponibles.</p>
+                <a href="{{ url_for('editor_panel') }}" class="btn btn-warning">Acceder</a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if 'delete' in permissions %}
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Panel de Administrador</h5>
+                <p class="card-text">Control total del sistema.</p>
+                <a href="{{ url_for('admin_panel') }}" class="btn btn-danger">Acceder</a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
