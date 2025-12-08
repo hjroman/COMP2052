@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Sistema Biblioteca{% endblock %}</title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+    <div class="container">
+        {% if session.user_id %}
+        <div class="header">
+            <h1>📚 Sistema Gestor de Biblioteca</h1>
+            <div class="nav">
+                <a href="{{ url_for('dashboard') }}">Dashboard</a>
+                <a href="{{ url_for('books_page') }}">Libros</a>
+                <a href="{{ url_for('members_page') }}">Miembros</a>
+                <a href="{{ url_for('loans_page') }}">Préstamos</a>
+                {% if session.user_rol == 'admin' %}
+                <a href="{{ url_for('users_page') }}">Usuarios</a>
+                {% endif %}
+                <a href="{{ url_for('logout') }}">Cerrar Sesión</a>
+            </div>
+        </div>
+        {% endif %}
+        
+        <div class="content">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+</body>
+</html>

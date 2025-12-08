@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - Sistema Biblioteca</title>
+    <link rel="stylesheet" href="static/style.css"> #{{ url_for('static', filename='css/style.css') }}
+</head>
+<body>
+    <div class="login-container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <h2>🔐 Iniciar Sesión</h2>
+        <form method="POST">
+            <div class="form-group">
+                <label>Usuario</label>
+                <input type="text" name="username" required placeholder="Ingresa tu usuario">
+            </div>
+            <div class="form-group">
+                <label>Contraseña</label>
+                <input type="password" name="password" required placeholder="Ingresa tu contraseña">
+            </div>
+            <button type="submit" class="btn-primary" style="width: 100%;">Iniciar Sesión</button>
+        </form>
+        <div class="info-box">
+            <p><strong>👨‍💼 Admin:</strong> usuario: <code>admin</code> / contraseña: <code>admin123</code></p>
+            <p><strong>👤 Bibliotecario:</strong> usuario: <code>bibliotecario</code> / contraseña: <code>biblio123</code></p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block title %}Gestión de Préstamos - Sistema Biblioteca{% endblock %}
+
+{% block content %}
+<h2>📖 Gestión de Préstamos</h2>
+
+<div class="card">
+    <h3>Registrar Nuevo Préstamo</h3>
+    <form method="POST" action="{{ url_for('create_loan_form') }}">
+        <div class="grid-2">
+            <div class="form-group">
+                <label>Seleccionar Libro</label>
+                <select name="libro_id" required>
+                    <option value="">-- Seleccione un libro --</option>
+                    {% for libro in libros %}
+                        {% if libro.disponible %}
+                        <option value="{{ libro.id }}">{{ libro.titulo }} - {{ libro.autor }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Seleccionar Miembro</label>
+                <select name="miembro_id" required>
+                    <option value="">-- Seleccione un miembro --</option>
+                    {% for miembro in miembros %}
+                    <option value="{{ miembro.id }}">{{ miembro.nombre }} {{ miembro.apellido }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <button type="submit" class="btn-primary">➕ Registrar Préstamo</button>
+    </form>
+</div>
+
+<div class="card">
+    <h3>Lista de Préstamos</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Libro</th>
+                <th>Miembro</th>
+                <th>Fecha Préstamo</th>
+                <th>Fecha Devolución</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for prestamo in prestamos %}
+            <tr>
+                <td>{{ prestamo.id }}</td>
+                <td>
+                    {% set libro = libros|selectattr("id", "equalto", prestamo.libro_id)|first %}
+                    {{ libro.titulo if libro else 'N/A' }}
+                </td>
+                <td>
+                    {% set miembro = miembros|selectattr("id", "equalto", prestamo.miembro_id)|first %}
+                    {{ miembro.nombre if miembro else 'N/A' }} {{ miembro.apellido if miembro else '' }}
+                </td>
+                <td>{{ prestamo.fecha_prestamo.strftime('%d/%m/%Y %H:%M') }}</td>
+                <td>
+                    {% if prestamo.fecha_devolucion %}
+                        {{ prestamo.fecha_devolucion.strftime('%d/%m/%Y %H:%M') }}
+                    {% else %}
+                        <span class="badge badge-warning">Pendiente</span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if prestamo.estado == 'Activo' %}
+                        <span class="badge badge-warning">Activo</span>
+                    {% else %}
+                        <span class="badge badge-success">Devuelto</span>
+                    {% endif %}
+                </td>
+                <td class="actions">
+                    {% if prestamo.estado == 'Activo' %}
+                    <form method="POST" action="{{ url_for('return_loan_form', loan_id=prestamo.id) }}" style="display: inline;">
+                        <button type="submit" class="btn-secondary">✅ Devolver</button>
+                    </form>
+                    {% endif %}
+                    <form method="POST" action="{{ url_for('delete_loan_form', loan_id=prestamo.id) }}" style="display: inline;">
+                        <button type="submit" class="btn-danger" onclick="return confirm('¿Eliminar este préstamo?')">🗑️</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

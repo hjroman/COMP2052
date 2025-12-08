@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Sistema Biblioteca{% endblock %}
+
+{% block content %}
+<h2>Bienvenido, {{ session.user_nombre }}!</h2>
+<p style="color: #666; margin-bottom: 30px;">Rol: <strong>{{ session.user_rol|upper }}</strong></p>
+
+<div class="stats">
+    <div class="stat-card">
+        <h3>{{ total_libros }}</h3>
+        <p>📚 Total de Libros</p>
+    </div>
+    <div class="stat-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+        <h3>{{ libros_disponibles }}</h3>
+        <p>✅ Libros Disponibles</p>
+    </div>
+    <div class="stat-card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+        <h3>{{ total_miembros }}</h3>
+        <p>👥 Miembros Activos</p>
+    </div>
+    <div class="stat-card" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+        <h3>{{ prestamos_activos }}</h3>
+        <p>📖 Préstamos Activos</p>
+    </div>
+</div>
+
+<div class="card">
+    <h3>🔥 Acciones Rápidas</h3>
+    <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+        <a href="{{ url_for('books_page') }}" class="btn-primary">Gestionar Libros</a>
+        <a href="{{ url_for('members_page') }}" class="btn-primary">Gestionar Miembros</a>
+        <a href="{{ url_for('loans_page') }}" class="btn-primary">Gestionar Préstamos</a>
+    </div>
+</div>
+{% endblock %}
