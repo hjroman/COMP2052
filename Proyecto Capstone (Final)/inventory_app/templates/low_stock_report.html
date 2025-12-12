@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Stock Bajo{% endblock %}
+
+{% block content %}
+<h2>Productos con Stock Bajo</h2>
+
+<form method="get" class="filter-form">
+    <label>Umbral de stock:
+        <input type="number" name="threshold" min="0" value="{{ threshold }}">
+    </label>
+    <button type="submit">Actualizar</button>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Proveedor</th>
+            <th>Producto</th>
+            <th>SKU</th>
+            <th>Stock</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for product in products %}
+        <tr>
+            <td>{{ product.id }}</td>
+            <td>{{ product.supplier.name }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.sku }}</td>
+            <td>{{ product.stock }}</td>
+        </tr>
+    {% else %}
+        <tr><td colspan="5">No hay productos por debajo del umbral de stock.</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

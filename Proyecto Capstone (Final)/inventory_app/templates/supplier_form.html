@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Proveedor{% endblock %}
+
+{% block content %}
+<h2>{% if supplier %}Editar Proveedor{% else %}Nuevo Proveedor{% endif %}</h2>
+
+{% if errors %}
+<ul class="error-list">
+    {% for e in errors %}
+        <li>{{ e }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<form method="post">
+    <label>Nombre*:
+        <input type="text" name="name" required value="{{ supplier.name if supplier else '' }}">
+    </label>
+
+    <label>Email de contacto:
+        <input type="email" name="contact_email" value="{{ supplier.contact_email if supplier else '' }}">
+    </label>
+
+    <label>Teléfono:
+        <input type="text" name="phone" value="{{ supplier.phone if supplier else '' }}">
+    </label>
+
+    <button type="submit">Guardar</button>
+        <a href="{{ url_for('list_suppliers') }}">Cancelar</a>
+</form>
+{% endblock %}

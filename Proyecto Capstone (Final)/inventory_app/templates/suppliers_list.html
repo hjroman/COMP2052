@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Proveedores{% endblock %}
+
+{% block content %}
+<h2>Proveedores</h2>
+
+<a class="btn" href="{{ url_for('create_supplier') }}">+ Nuevo proveedor</a>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Teléfono</th>
+            <th>Productos</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+
+    <tbody>
+    {% for supplier in suppliers %}
+        <tr>
+            <td>{{ supplier.id }}</td>
+            <td>{{ supplier.name }}</td>
+            <td>{{ supplier.contact_email or "-" }}</td>
+            <td>{{ supplier.phone or "-" }}</td>
+            <td>{{ supplier.products|length }}</td>
+            <td>
+                <a href="{{ url_for('edit_supplier', supplier_id=supplier.id)}}">Editar</a>
+                <form action="{{ url_for('delete_supplier', supplier_id=supplier.id) }}"
+                method="post" style="display:inline;" onsubmit="return confirm('¿Seguro que deseas eliminar este proveedor?');">
+                    <button type="submit">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+    {% else %}
+        <tr><td colspan="6">No hay proveedores registrados.</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

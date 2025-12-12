@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Productos{% endblock %}
+
+{% block content %}
+<h2>Productos</h2>
+
+<a class="btn" href="{{ url_for('create_product') }}">+ Nuevo producto</a>
+
+<form method="get" class="filter-form">
+    <label>Filtrar por proveedor:
+        <select name="supplier_id" onchange="this.form.submit()">
+            <option value="">Todos</option>
+            {% for sup in suppliers %}
+                <option value="{{ sup.id }}" {% if selected_supplier_id == sup.id %}selected{% endif %}>
+                {{ sup.name }}
+            </option>
+            {% endfor %}
+        </select>
+    </label>
+    <noscript>
+        <button type="submit">Filtrar</button>
+    </noscript>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Proveedor</th>
+            <th>Nombre</th>
+            <th>SKU</th>
+            <th>Stock</th>
+            <th>Precio Unitario</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+
+    <tbody>
+    {% for product in products %}
+        <tr>
+            <td>{{ product.id }}</td>
+            <td>{{ product.supplier.name }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.sku }}</td>
+            <td>{{ product.stock }}</td>
+            <td>{{ "%.2f"|format(product.unit_price) }}</td>
+            <td>
+                <a href="{{ url_for('edit_product', product_id=product.id) }}">Editar</a>
+                <form action="{{ url_for('delete_product', product_id=product.id) }}"
+                method="post" style="display:inline;" onsubmit="return confirm('¿Seguro que deseas eliminar este producto?');">
+                    <button type="submit">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+    {% else %}
+        <tr><td colspan="7">No hay productos registrados.</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

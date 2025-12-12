@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Inventario{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+
+<body>
+    <header>
+        <h1>Sistema de Inventario con Proveedores</h1>
+        <nav>
+            <a href="{{ url_for('list_products') }}">Productos</a>
+            <a href="{{ url_for('list_suppliers') }}">Proveedores</a>
+            <a href="{{ url_for('low_stock_report') }}">Stock Bajo</a>
+            </nav>
+    </header>
+
+    <main>
+        {% with messages = get_flashed_messages(with_categories=True) %}
+            {% if messages %}
+                <div class="flash-container">
+                    {% for category, message in messages %}
+                        <div class="flash flash-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>Proyecto Capstone - Backend Developer</p>
+    </footer>
+</body>
+</html>
